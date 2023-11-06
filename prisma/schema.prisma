@@ -13,7 +13,7 @@ datasource db {
 model Usuario{
   id String @id @default(uuid())
   //uuid: unique user identification, esto genera automaticamente un Hash, lo cual es más seguro
-  nombre String
+  username String @unique
   email String @unique @db.VarChar(255) //Establecer un limite de letras
   password String
 }

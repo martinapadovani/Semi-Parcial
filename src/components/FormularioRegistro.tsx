@@ -2,14 +2,12 @@
 import Link from "next/link"
 import { FormEvent, useRef } from "react"
 import {verify} from "jsonwebtoken"
-//Importamos el contexto que creamos
-import { useContext } from "react"
 //Importamos la funcion de react que nos permite acceder a nuestro contexto
 
 
 export default function FormularioDeRegistro(){
   //Inicio las referencias para mis inputs
-  const nombreRef = useRef(null)
+  const usernameRef = useRef(null)
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
 
@@ -20,7 +18,7 @@ export default function FormularioDeRegistro(){
 
     const usuario = {
       //@ts-ignore
-      nombre: nombreRef.current?.value,
+      username: usernameRef.current?.value,
       //@ts-ignore
       email: emailRef.current?.value,
       //@ts-ignore
@@ -62,6 +60,13 @@ export default function FormularioDeRegistro(){
       //y la variable de entorno que corresponde al Front
     )
     console.log(usuarioDecodificado)
+
+    //@ts-ignore
+    emailRef.current.value = ""
+    //@ts-ignore
+    usernameRef.current.value = ""
+    //@ts-ignore  
+    passwordRef.current.value = ""
     
   }
   
@@ -71,7 +76,7 @@ export default function FormularioDeRegistro(){
       <form onSubmit={mandarDatosDeRegistro} className="text-black">
         {/*Le indico al form que, al momento de subirse, ejecute la funcion */}
       
-        <input ref={nombreRef} type="text" placeholder="Nombre completo" />
+        <input ref={usernameRef} type="text" placeholder="username" />
         <input ref={emailRef} type="email" placeholder="Email"/>
         <input ref={passwordRef} type="password" placeholder="Contraseña"/>
 
