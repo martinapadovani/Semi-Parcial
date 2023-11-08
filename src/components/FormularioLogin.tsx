@@ -91,12 +91,14 @@ export default function FormularioLogin(){
 
   return(
 
-    <form onSubmit={mandarDatosDeLogin} className="text-black" action="">
+    <form onSubmit={mandarDatosDeLogin} className="h-2/5 w-80 bg-fondoMain mx-auto mt-20 rounded-lg flex flex-col justify-evenly m-auto p-4" action="">
 
-        <input ref={usernameRef} type="text" placeholder="usuario"/>
-        <input ref={passwordRef} type="password" placeholder="contraseña" />
+        <input className= "mx-5 rounded-lg p-2"  ref={usernameRef} type="text" placeholder="Usuario"/>
+        <input  className= "mx-5 rounded-lg p-2" ref={passwordRef} type="password" placeholder="Contraseña" />
 
         <input type="submit" value="Ingresar" className="text-white"/>
+
+        <Link className="mx-auto" href="/auth/login">Todavia no tienes cuenta? Registrate!</Link>
     </form>
 
   )

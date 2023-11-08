@@ -47,4 +47,6 @@ export default async function post(req: Request, res: any){
     })
 
     return res.status(201).json({token})
+
+    
 }

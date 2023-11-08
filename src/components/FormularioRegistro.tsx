@@ -72,17 +72,26 @@ export default function FormularioDeRegistro(){
   
   //HTML
   return(
-    <>
-      <form onSubmit={mandarDatosDeRegistro} className="text-black">
+
+
+      <form className="h-2/5 w-80 bg-fondoMain mx-auto mt-20 rounded-lg flex flex-col justify-evenly m-auto p-4" onSubmit={mandarDatosDeRegistro}>
         {/*Le indico al form que, al momento de subirse, ejecute la funcion */}
       
-        <input ref={usernameRef} type="text" placeholder="username" />
-        <input ref={emailRef} type="email" placeholder="Email"/>
-        <input ref={passwordRef} type="password" placeholder="Contraseña"/>
-
+        <input className= "mx-5 rounded-lg p-2" ref={usernameRef} type="text" placeholder="Usuario" />
+        <input className= "mx-5 rounded-lg p-2" ref={emailRef} type="email" placeholder="Email"/>
+        <input className= "mx-5 rounded-lg p-2" ref={passwordRef} type="password" placeholder="Contraseña"/>
+      
         <input type="submit" value="Registrar" className="text-white"/>
+
+        <Link className="mx-auto" href="/auth/login">Ya tienes una cuenta? Ingresá!</Link>
       </form>
 
-    </>    
+
+
+
+    
+
+
+  
   )
 }
