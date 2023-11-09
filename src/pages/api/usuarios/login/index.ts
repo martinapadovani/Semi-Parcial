@@ -7,7 +7,7 @@ import { sign } from "jsonwebtoken"
 
 const prisma = new PrismaClient()
 
-export default async function post(req: Request, res: any){ 
+export default async function Post(req: Request, res: any){ 
 
     //Recuperar los datos ingresados, por parte de la peticion
     const usuario = req.body

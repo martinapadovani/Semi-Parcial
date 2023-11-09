@@ -1,29 +1,54 @@
 import Chat from "@/components/Chat"
 import { iniciarSockets } from "@/utils/iniciarSockets";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
 
 
 export default function Layout({children,}: {children: React.ReactNode})  {
 
-    let socket;
-        
-    useEffect(() => {
+    //let socket;
 
-        //Una vez que la página cargue, ejecuto la funcion que contiene los eventos
-        socket = iniciarSockets({socket});
+    //Controlar si el menú de categorías está visible o no.
+    const [categoriasVisible, setCategoriasVisible] = useState(false); //oculto por defecto
+    
+    const [productos, setProductos] = useState([])
         
-        return () => {
-            
-            // if(socket){
-            //     socket.disconnect();
-            // }
-            
-          //Cuando se descargue la página, corto la conexion con el servidor
-        };
-    });
+    // useEffect(() => {
 
+    //     //Una vez que la página cargue, ejecuto la funcion que contiene los eventos
+    //     socket = iniciarSockets({socket});
+        
+    //     return () => {
+            
+    //         // if(socket){
+    //         //     socket.disconnect();
+    //         // }
+            
+    //       //Cuando se descargue la página, corto la conexion con el servidor
+    //     };
+    // });
+
+    //cambia el estado categoriasVisible a su opuesto cada vez que se llama. 
+    const toggleCategorias = () => {
+        setCategoriasVisible(!categoriasVisible);
+    } ;
+
+    async function obtenerProductos(){
+
+        const response = await fetch ('https://fakestoreapi.com/products', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json", //Indico que vamos a enviar datos de tipo JSON
+            },
+        })
+
+        const productos = await response.json()
+
+        setProductos(productos)
+
+        return productos
+    }
 
     return (
         
@@ -32,8 +57,26 @@ export default function Layout({children,}: {children: React.ReactNode})  {
                 <ul className="flex w-screen text-white my-3 justify-between items-center">    
 
                     <div className="flex mx-10">
+
                         <li className="mx-5"><Link href="/">Inicio</Link></li>
-                        <li className="mx-5" ><Link href="/" >Categorias</Link></li>
+
+                        <li className="mx-5" onClick={toggleCategorias}>
+                            Categorias
+                            {/* Flecha que indica si el menú está desplegado o no */}
+                            {categoriasVisible ? '▲' : '▼'}
+                        </li>
+
+                        {/* Menú de categorías, si categoriasVisible es true: */}
+                        {categoriasVisible && (
+                            <div className="absolute flex flex-col bg-fondoHeader mt-2 py-2 px-4 rounded-md">
+                                <Link href="/productos/electronics">Electrónicos</Link>
+                                <Link href="/productos/jewelery">Joyería</Link>
+                                <Link href="/productos/men's%20clothing">Hombre</Link>
+                                <Link href="/productos/women's%20clothing">Mujer</Link>
+                                {/* Agrega más categorías según tus necesidades */}
+                            </div>
+                        )}
+
                     </div>
 
                     <input className="rounded-sm w-3/5 bg-fondoBarraBusqueda    p-1"/>
