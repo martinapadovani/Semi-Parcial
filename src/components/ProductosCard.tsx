@@ -3,7 +3,7 @@ import Image from "next/image";
 
 interface ProductosCardProps {
     titulo:string
-    precio:string
+    precio:number
     descripcion: string;
     imagen: string
 }

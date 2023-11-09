@@ -93,8 +93,8 @@ export default function Layout({children,}: {children: React.ReactNode})  {
 
             {children}
             
-            {/* <h2>Chat de soporte: </h2>
-            <Chat socket={socket} ></Chat> */}
+            <h2>Chat de soporte: </h2>
+            <Chat></Chat>
         </section>
 
     )

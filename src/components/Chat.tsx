@@ -1,37 +1,43 @@
 import { useState, useEffect, FormEvent } from "react";
 import io, { Socket } from "socket.io-client";
 
-export default function ChatPage({socket}: {socket: Socket }) {
+
+let socket: Socket
+export default function ChatPage() {
 
     const [message, setMessage] = useState("");
     const [username, setUsername] = useState("");
     const [todosLosMensajes, setTodosLosMensajes] = useState([]);
     
-    // useEffect(() => {
-    //     //Una vez que la página cargue, ejecuto la funcion que contiene los eventos
-    //     iniciarSockets();
+    useEffect(() => {
+        //Una vez que la página cargue, ejecuto la funcion que contiene los eventos
+        iniciarSockets();
         
-    //     return () => {
-    //         if (socket) {
-    //             socket.disconnect();
-    //         }
-    //       //Cuando se descargue la página, corto la conexion con el servidor
-    //     };
-    // }, []);
+        return () => {
+            if (socket) {
+                socket.disconnect();
+            }
+          //Cuando se descargue la página, corto la conexion con el servidor
+        };
+    }, []);
 
-    if (socket){
-
+    async function iniciarSockets() {
+        await fetch("/api/socket");
+        //Inicio la ruta, para conectarme al servidor
+    
+        //importamos io desde socket y la guardamos en la variable let socket
+        socket = io();
+    
         socket.on("chat:mensaje", (mensajeNuevo) => {
-            //recibo el mensaje y lo agrego a la lista de mensajes
-            //no puedo usar .push ya que es un estado
-     
-            //recibe los mensajes que estaban guardados en el arreglo hasta el momento
-            //@ts-ignore
-            setTodosLosMensajes((mensajesAnteriores) => 
-              [...mensajesAnteriores, mensajeNuevo,]);
-              //seteo el arreglo con la clonacion de los mensajes anteriores más el nuevo
-         });
-
+          //recibo el mensaje y lo agrego a la lista de mensajes
+          //no puedo usar .push ya que es un estado
+    
+          //recibe los mensajes que estaban guardados en el arreglo hasta el momento
+          //@ts-ignore
+          setTodosLosMensajes((mensajesAnteriores) => 
+            [...mensajesAnteriores, mensajeNuevo,]);
+            //seteo el arreglo con la clonacion de los mensajes anteriores más el nuevo
+        });
     }
 
 
@@ -62,7 +68,8 @@ export default function ChatPage({socket}: {socket: Socket }) {
 
                     <li key={index}> {/*por cada mensaje dentro del arreglo creo un li */}
 
-                        {mensaje.username}: {mensaje.contenido}
+                        {/*@ts-ignore*/}
+                        {mensaje.username} : {mensaje.contenido}
                     </li>
                 ))}
             </ul>
