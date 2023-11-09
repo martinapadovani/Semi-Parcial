@@ -1,7 +1,8 @@
 import Chat from "@/components/Chat"
 import { iniciarSockets } from "@/utils/iniciarSockets";
+import { buscarProductos } from "@/utils/logicaInputBusqueda";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Socket } from "socket.io-client";
 
 
@@ -11,8 +12,8 @@ export default function Layout({children,}: {children: React.ReactNode})  {
 
     //Controlar si el menú de categorías está visible o no.
     const [categoriasVisible, setCategoriasVisible] = useState(false); //oculto por defecto
-    
-    const [productos, setProductos] = useState([])
+
+    const inputBusquedaRef = useRef(null)
         
     // useEffect(() => {
 
@@ -34,21 +35,21 @@ export default function Layout({children,}: {children: React.ReactNode})  {
         setCategoriasVisible(!categoriasVisible);
     } ;
 
-    async function obtenerProductos(){
 
-        const response = await fetch ('https://fakestoreapi.com/products', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json", //Indico que vamos a enviar datos de tipo JSON
-            },
-        })
+    //Se ejecutará cada vez que se presione una tecla dentro del input. 
+    const teclaPresionada = (event: any) => {
 
-        const productos = await response.json()
+        //@ts-ignore
+        const busqueda = inputBusquedaRef.current.value.toLowerCase()
+        console.log(busqueda)
 
-        setProductos(productos)
+        //Si la tecla presionada es "Enter", se llama a buscarProductos().
+        if (event.key === 'Enter') {
+          // La tecla "Enter" fue presionada, ejecutar la función
+          buscarProductos(busqueda);
+        }
+    };
 
-        return productos
-    }
 
     return (
         
@@ -79,12 +80,12 @@ export default function Layout({children,}: {children: React.ReactNode})  {
 
                     </div>
 
-                    <input className="rounded-sm w-3/5 bg-fondoBarraBusqueda    p-1"/>
+                    <input onKeyDown={teclaPresionada} ref={inputBusquedaRef} className="rounded-sm w-3/5 bg-fondoBarraBusqueda  text-black  p-1"/>
 
                     <div className="flex mx-10">
                         <li className="mx-5" ><Link href="/auth/login" >Ingresá</Link></li>
                         <li className="mx-5" ><Link href="/auth/register" >Registrate</Link></li>
-                        <li className="mx-5" ><Link href="/" >Contacto</Link></li>
+                        <li className="mx-5" ><Link href="/contacto" >Contacto</Link></li>
                     </div>
 
                 </ul>
