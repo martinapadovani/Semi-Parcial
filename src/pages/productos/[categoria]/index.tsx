@@ -1,37 +1,14 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
 import ProductosCard from '@/components/ProductosCard'
 
-export default function Productos(){
+//Establezco un tipo para productos
+type Product = {
 
-    const [productos, setProductos] = useState([])
+    title:string
+    price:number
+    image: string
+}
 
-    // Obtén el objeto router
-    const router = useRouter();
-
-    // Accede al valor de la variable de ruta [categorias]
-    const {categoria}  = router.query;
-    //router.query me da acceso al valor de la variable de ruta en el componente.
-    
-    async function obtenerProductosCategoria (){
-
-        const response = await fetch(`https://fakestoreapi.com/products/category/${categoria}`, {
-            //Indico la ruta y configuracion de mi peticion
-            method: "GET",
-            headers: {
-              //metadatos de la peticion que brindan un contexto 
-              "Content-Type": "application/json", //Indico que vamos a enviar datos de tipo JSON
-            },
-        })
-        
-        const productos = await response.json()
-
-        setProductos(productos)
-
-        return productos
-    }
-
-    obtenerProductosCategoria()
+export default function Productos({ productos }: { productos: Product[] }) {
 
     return (
 
@@ -40,12 +17,11 @@ export default function Productos(){
             <div className="container px-5 py-24 mx-auto">
 
                 <div className="flex flex-wrap -m-4">
-                {productos.map((producto:any, index:any) => ( 
+                {productos.map((producto:Product, index:number) => ( 
                     <ProductosCard 
                         key={index}
                         titulo={producto.title}
                         precio={producto.price}
-                        descripcion={producto.descripcion}
                         imagen={producto.image }
                     />
                 ))}
@@ -57,3 +33,26 @@ export default function Productos(){
     )
 
 }
+
+//Establezco este componente para obtener propiedades desde el servidor (antes de que la pag cargue) y enviarlos al componente
+export async function getServerSideProps(context: any){
+    //Le paso por parametro el contexto de la llamada a la página, que contiene metadatos, entre ellos los parametros
+
+    const categoria = context.params.categoria
+    //A traves del contexto obtengo los parámetros que contienen la categoria
+
+    const response = await fetch(`https://fakestoreapi.com/products/category/${categoria}`, {
+        //Indico la ruta y configuracion de mi peticion
+        method: "GET",
+        headers: {
+          //metadatos de la peticion que brindan un contexto 
+          "Content-Type": "application/json", //Indico que vamos a enviar datos de tipo JSON
+        },
+    })
+    
+    const productos = await response.json()
+
+    //Devuelvo un objeto con el atributo props y dentro, los datos que quiero enviar al componente
+    return { props: {productos} }
+}
+

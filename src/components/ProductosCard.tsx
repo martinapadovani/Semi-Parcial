@@ -2,15 +2,14 @@ import Link from "next/link"
 import Image from "next/image";
 
 interface ProductosCardProps {
-    titulo:string
-    precio:number
-    descripcion: string;
-    imagen: string
+  titulo:string
+  precio:number
+  imagen: string
 }
 
 
 
-export default function ProductosCard({titulo, precio, descripcion, imagen}: ProductosCardProps){
+export default function ProductosCard({titulo, precio, imagen}: ProductosCardProps){
 
     return (
 
@@ -29,10 +28,6 @@ export default function ProductosCard({titulo, precio, descripcion, imagen}: Pro
                   {titulo}
                 </h2>
 
-                <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-                  {descripcion}
-                </h3>
-                
                 <p className="mt-1">${precio}</p>
             </div>
         </div>
