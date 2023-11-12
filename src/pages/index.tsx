@@ -58,11 +58,11 @@ export async function getServerSideProps(context: any){
   };
 
   //Asigno imágenes a cada categoría
-// Suponiendo que categoriasAPI es un arreglo de cadenas
-const categorias = categoriasAPI.map((categoria: string) => ({
-  nombre: categoria,
-  imagen: imagenesPredeterminadas[categoria] || '', // Proporciona una cadena vacía si la imagen es undefined
-}));
+  // Suponiendo que categoriasAPI es un arreglo de cadenas
+  const categorias = categoriasAPI.map((categoria: string) => ({
+    nombre: categoria,
+    imagen: imagenesPredeterminadas[categoria] || '', // Proporciona una cadena vacía si la imagen es undefined
+  }));
 
 
   return {props: {categorias}}

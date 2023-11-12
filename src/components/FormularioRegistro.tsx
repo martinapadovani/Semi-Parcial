@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { FormEvent, useRef, useState } from "react"
 import {verify} from "jsonwebtoken"
+import Chat from "./Chat"
 //Importamos la funcion de react que nos permite acceder a nuestro contexto
 
 
@@ -83,6 +84,9 @@ export default function FormularioDeRegistro(){
     <>
     <h2>Registro exitoso!</h2> 
     <Link className="mx-auto" href="/auth/login">Ingresá!</Link>
+
+    <h2>Chat de soporte: </h2>
+      <Chat></Chat>
     </>
   ):
   (

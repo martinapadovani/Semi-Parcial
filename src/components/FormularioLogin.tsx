@@ -3,6 +3,7 @@ import { UserContext } from "@/context/UserContext"
 import Link from "next/link"
 import { FormEvent, useContext, useRef } from "react"
 import Swal from "sweetalert2"
+import Chat from "./Chat"
 
 
 export default function FormularioLogin(){
@@ -108,6 +109,8 @@ export default function FormularioLogin(){
 
       <>
         <h2 className="text-black">Bienvenido!</h2>
+        <h2>Chat de soporte: </h2>
+        <Chat></Chat>
       </>
       
       ):

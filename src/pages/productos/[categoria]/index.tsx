@@ -3,12 +3,15 @@ import ProductosCard from '@/components/ProductosCard'
 //Establezco un tipo para productos
 type Product = {
 
+    id: number
     title:string
     price:number
+    category: string
     image: string
+
 }
 
-export default function Productos({ productos }: { productos: Product[] }) {
+export default function ProductosXCategoria({ productos }: { productos: Product[]}) {
 
     return (
 
@@ -20,8 +23,10 @@ export default function Productos({ productos }: { productos: Product[] }) {
                 {productos.map((producto:Product, index:number) => ( 
                     <ProductosCard 
                         key={index}
+                        id={producto.id}
                         titulo={producto.title}
                         precio={producto.price}
+                        categoria={producto.category}
                         imagen={producto.image }
                     />
                 ))}
@@ -50,6 +55,7 @@ export async function getServerSideProps(context: any){
         },
     })
     
+    //Obtengo los productos de la categoria correspondiente, desde la API
     const productos = await response.json()
 
     //Devuelvo un objeto con el atributo props y dentro, los datos que quiero enviar al componente

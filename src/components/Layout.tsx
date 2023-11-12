@@ -1,40 +1,19 @@
-import Chat from "@/components/Chat"
-import { iniciarSockets } from "@/utils/iniciarSockets";
 import { buscarProductos } from "@/utils/logicaInputBusqueda";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { Socket } from "socket.io-client";
+import {useRef, useState } from "react";
 
 
 export default function Layout({children,}: {children: React.ReactNode})  {
-
-    //let socket;
 
     //Controlar si el menú de categorías está visible o no.
     const [categoriasVisible, setCategoriasVisible] = useState(false); //oculto por defecto
 
     const inputBusquedaRef = useRef(null)
         
-    // useEffect(() => {
-
-    //     //Una vez que la página cargue, ejecuto la funcion que contiene los eventos
-    //     socket = iniciarSockets({socket});
-        
-    //     return () => {
-            
-    //         // if(socket){
-    //         //     socket.disconnect();
-    //         // }
-            
-    //       //Cuando se descargue la página, corto la conexion con el servidor
-    //     };
-    // });
-
     //cambia el estado categoriasVisible a su opuesto cada vez que se llama. 
     const toggleCategorias = () => {
         setCategoriasVisible(!categoriasVisible);
     } ;
-
 
     //Se ejecutará cada vez que se presione una tecla dentro del input. 
     const teclaPresionada = (event: any) => {
@@ -49,7 +28,6 @@ export default function Layout({children,}: {children: React.ReactNode})  {
           buscarProductos(busqueda);
         }
     };
-
 
     return (
         
@@ -92,9 +70,8 @@ export default function Layout({children,}: {children: React.ReactNode})  {
             </nav>
 
             {children}
-            
-            <h2>Chat de soporte: </h2>
-            <Chat></Chat>
+
+
         </section>
 
     )

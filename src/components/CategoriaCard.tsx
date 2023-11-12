@@ -3,7 +3,7 @@ import Image from "next/image";
 
 /*La interfaz CategoriaCardProps en TypeScript define la estructura y tipos de las propiedades que espera el componente CategoriaCard. 
 En este caso defino  que espera una propiedad llamada categoria de tipo string*/
-interface CategoriaCardProps {
+type CategoriaCardProps = {
   categoria: string;
   imagen: string
 }
