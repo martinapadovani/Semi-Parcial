@@ -9,7 +9,7 @@ import { PrismaClient} from "@prisma/client"
 const prisma = new PrismaClient() 
 
 //Ruta de tipo POST para poder subir usuarios
-export default async function post(req: Request, res: any) {
+export default async function Post(req: Request, res: any) {
     //recibe una request (peticion), de tipo Resquest
 
     //Capturar los datos del usuario por parte de la peticion

@@ -1,20 +1,27 @@
 "use client"
+import { UserContext } from "@/context/UserContext"
 import Link from "next/link"
 import { FormEvent, useContext, useRef } from "react"
 import Swal from "sweetalert2"
+import Chat from "./Chat"
 
 
 export default function FormularioLogin(){
-
+    //Referencias de los campos de entrada
     const usernameRef = useRef(null)
     const passwordRef = useRef(null)
 
-    //Funcion para enviar los datos que me llegan desde el formulario al Backend
+    //Contexto de usuario
+    //@ts-ignore
+    const {user, setUser} = useContext(UserContext)
+
+    //Funcion para enviar los datos que me llegan desde el formulario, al Backend
     async function mandarDatosDeLogin(evento: FormEvent){ 
     //recibo el evento del formulario, de tipo FormEvent
 
       evento.preventDefault() //Prevengo el evento del formulario de recargar la pagina
 
+      // Construyo   el objeto de usuario con los datos del formulario
       const usuario = {
         //@ts-ignore
         username: usernameRef.current?.value,
@@ -66,13 +73,6 @@ export default function FormularioLogin(){
         })
       }
 
-      // //Si todo sale bien, obtengo el TOKEN que recibo del Back, contiene al usuario y la firma
-      // const token = await respuesta.json()
-      // //El token es igual a esperar que la respuesta se transforme a JSON
-      // //Encierro el token en llaves para que me devuelva solamente el texto y no el objeto completo
-
-      // // console.log(token)
-
       if(respuesta.status == 201){
     
         Swal.fire({
@@ -81,24 +81,51 @@ export default function FormularioLogin(){
          footer: '<a href="/auth/blogs">Ir Blogs</a>'
         })
 
+        //Actualizo el contexto del usuario
+        setUser({
+          ...user,
+          //@ts-ignore
+          username: usernameRef.current.value,
+          autorizado: true
+        })
+        console.log(user)
       }
 
+      // //Si todo sale bien, obtengo el TOKEN que recibo del Back, contiene al usuario y la firma
+      // const token = await respuesta.json()
+      // //El token es igual a esperar que la respuesta se transforme a JSON
+      // //Encierro el token en llaves para que me devuelva solamente el texto y no el objeto completo
+
+      // // console.log(token)
+
+      //Limpio los campos de entrada
       //@ts-ignore
       passwordRef.current.value = ""
       //@ts-ignore
       usernameRef.current.value = ""
     }
 
-  return(
+  return user.autorizado ? (
 
-    <form onSubmit={mandarDatosDeLogin} className="text-black" action="">
+      <>
+        <h2 className="text-black">Bienvenido!</h2>
+        <h2>Chat de soporte: </h2>
+        <Chat></Chat>
+      </>
+      
+      ):
+      (
+        <form onSubmit={mandarDatosDeLogin} className="h-2/5 w-80 bg-fondoMain mx-auto mt-20 rounded-lg flex flex-col justify-evenly m-auto p-4 text-black" action="">
 
-        <input ref={usernameRef} type="text" placeholder="usuario"/>
-        <input ref={passwordRef} type="password" placeholder="contraseña" />
+          <input className= "mx-5 rounded-lg p-2"  ref={usernameRef} type="text" placeholder="Usuario"/>
+          <input  className= "mx-5 rounded-lg p-2" ref={passwordRef} type="password" placeholder="Contraseña" />
 
-        <input type="submit" value="Ingresar" className="text-white"/>
-    </form>
+          <input type="submit" value="Ingresar" className="text-white"/>
 
-  )
+          <Link className="mx-auto" href="/auth/login">Todavia no tienes cuenta? Registrate!</Link>
+        </form>
+      )
+    
+  
 
 }
