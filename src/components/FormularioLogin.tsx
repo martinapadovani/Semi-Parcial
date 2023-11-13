@@ -85,7 +85,7 @@ export default function FormularioLogin(){
         setUser({
           ...user,
           //@ts-ignore
-          username: usernameRef.current.value,
+          username: usernameRef.current?.value,
           autorizado: true
         })
         console.log(user)

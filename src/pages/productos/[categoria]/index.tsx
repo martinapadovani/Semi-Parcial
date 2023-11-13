@@ -2,19 +2,16 @@ import ProductosCard from '@/components/ProductosCard'
 
 //Establezco un tipo para productos
 type Product = {
-
     id: number
     title:string
     price:number
     category: string
     image: string
-
 }
 
 export default function ProductosXCategoria({ productos }: { productos: Product[]}) {
 
     return (
-
         <section className= " bg-fondoMain my-12 m-auto h-3/4 w-10/12 text-gray-600 body-font">
         
             <div className="container px-5 py-24 mx-auto">
