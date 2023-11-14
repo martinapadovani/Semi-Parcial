@@ -75,7 +75,7 @@ export default function Layout({children,}: {children: React.ReactNode})  {
 
                     <div className="flex mx-10">
                         <li className="mx-5" ><Link href="/auth/login" >{user.username}</Link></li>
-                        <li className="mx-5" ><Link href="/contacto" >Contacto</Link></li>
+                        <li className="mx-5" ><Link href="/auth/logout" >Cerrar sesion</Link></li>
                         <li className="mx-5" ><Link href="/carrito" >Carrito</Link></li>
                     </div>
 
@@ -123,7 +123,6 @@ export default function Layout({children,}: {children: React.ReactNode})  {
                     <div className="flex mx-10">
                         <li className="mx-5" ><Link href="/auth/login" >Ingresá</Link></li>
                         <li className="mx-5" ><Link href="/auth/register" >Registrate</Link></li>
-                        <li className="mx-5" ><Link href="/contacto" >Contacto</Link></li>
                         <li className="mx-5" ><Link href="/carrito" >Carrito</Link></li>
                     </div>
 

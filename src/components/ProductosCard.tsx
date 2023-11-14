@@ -67,8 +67,6 @@ export default function ProductosCard({id, titulo, precio, categoria, imagen}: P
               })
 
             }}>Agregar al carrito</button>
-
-            <button onClick={() => console.log(carrito)}>ver carrito</button>
       </div>
   )
 }
