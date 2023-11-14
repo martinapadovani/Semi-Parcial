@@ -15,8 +15,10 @@ export default function Producto({ producto }: { producto: Product}){
 
         <ProductoCard
         key={producto.id}
+        id={producto.id}
         titulo={producto.title}
         descripcion={producto.description}
+        categoria={producto.category}
         precio={producto.price}
         imagen={producto.image}
         ></ProductoCard>

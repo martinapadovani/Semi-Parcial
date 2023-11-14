@@ -97,12 +97,6 @@ export default function FormularioLogin(){
       // //Encierro el token en llaves para que me devuelva solamente el texto y no el objeto completo
 
       // // console.log(token)
-
-      //Limpio los campos de entrada
-      //@ts-ignore
-      passwordRef.current.value = ""
-      //@ts-ignore
-      usernameRef.current.value = ""
     }
 
   return user.autorizado ? (
