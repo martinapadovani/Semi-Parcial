@@ -31,10 +31,9 @@ export default function ProductosCard({id, titulo, precio, categoria, imagen}: P
                   {titulo}
                 </h2>
               </Link>
-
-
                 <p className="mt-1">${precio}</p>
             </div>
+            <button></button>
         </div>
     )
 }
