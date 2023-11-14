@@ -10,13 +10,32 @@ type ProductoCarritoProps = {
     imagen: string
 }
 
+type Product = {
+    id: number
+    title:string
+    price:number
+    category: string
+    image: string
+}
+
 export default function Carrito({id, titulo, precio, categoria, imagen} : ProductoCarritoProps){
+
+    //@ts-ignore
+    const {carrito, setCarrito} = useContext(CarritoContext)
+
+    const producto: Product = {
+        id: id,
+        title:titulo,
+        price:precio,
+        category: categoria,
+        image: imagen
+    }    
 
     return (
         <li className="flex items-center gap-4">
 
         <Image
-          src={imagen}
+          src={producto.image}
           alt=""
           width={1000}
           height={1000}
@@ -24,18 +43,22 @@ export default function Carrito({id, titulo, precio, categoria, imagen} : Produc
         />
 
         <div>
-          <h3 className="text-sm text-gray-900">{titulo}</h3>
+          <h3 className="text-sm text-gray-900">{producto.title}</h3>
 
           <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
             <div>
-              <dt className="inline">Categoria</dt>
-              <dd className="inline">{categoria}</dd>
+              <dt className="inline">Categoria: </dt>
+              <dd className="inline">{producto.category}</dd>
+            </div>
+            <div>
+              <dt className="inline">Precio: </dt>
+              <dd className="inline">{producto.price}</dd>
             </div>
           </dl>
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-2">
-          <form>
+          {/* <form>
             <label for="Line1Qty" className="sr-only"> Quantity </label>
 
             <input
@@ -45,10 +68,23 @@ export default function Carrito({id, titulo, precio, categoria, imagen} : Produc
               id="Line1Qty"
               className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
             />
-          </form>
+          </form> */}
 
-          <button className="text-gray-600 transition hover:text-red-600">
-            <span className="sr-only">Remove item</span>
+            <button onClick={()=>{
+
+                const productosFiltrados = carrito.productos.filter((productoActual:Product) =>{
+                    return productoActual.id !== producto.id
+                })
+
+                const precioFiltrado = carrito.precioTotal - producto.price
+                
+              setCarrito({
+                productos: productosFiltrados, 
+
+                precioTotal: precioFiltrado
+              })
+
+            }} className="text-gray-600 transition hover:text-red-600">
 
             <svg
               xmlns="http://www.w3.org/2000/svg"

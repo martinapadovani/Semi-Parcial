@@ -1,11 +1,22 @@
 import { createContext, useState } from "react"
 
+type Product = {
+    id: number
+    title:string
+    price:number
+    category: string
+    image: string
+}
 
-let initialCart = {
+type Cart = {
+    productos: Product[]
+    precioTotal: number
+}
 
+let initialCart: Cart = {
     productos: [],
     precioTotal: 0
-}
+};
 
 export const CarritoContext = createContext(initialCart)
 
