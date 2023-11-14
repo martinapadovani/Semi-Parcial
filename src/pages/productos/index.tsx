@@ -15,6 +15,8 @@ export default function Productos(){
     //@ts-ignore
     const {productos} = useContext(ProductosContext) 
 
+    console.log(productos)
+
     return(
         <section className= " bg-fondoMain my-12 m-auto h-3/4 w-10/12 text-gray-600 body-font">
         
@@ -28,7 +30,7 @@ export default function Productos(){
                         titulo={producto.title}
                         precio={producto.price}
                         categoria={producto.category}
-                        imagen={producto.image }
+                        imagen={producto.image}
                     />
                 ))}
                 </div>

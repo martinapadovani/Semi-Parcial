@@ -7,13 +7,15 @@ let productosInicial  = []
 export const ProductosContext = createContext (productosInicial)
 
 export function ProductosProvider({children}: {children: React.ReactNode}){
+
     //@ts-ignore
     const [productos, setProductos] = useState(productosInicial)
 
-
-    useEffect(() => {
-        obtenerProductos()
-    })
+    // useEffect(() => {
+    //     obtenerProductos();
+    // }, []); 
+    // El array vacío indica que este useEffect solo se ejecuta una vez al montar el componente
+    /*Si le das un array vacío como segundo argumento, significa que no tiene dependencias, y por lo tanto, la función de efecto se ejecutará solo una vez cuando el componente se monte. */    
 
     async function obtenerProductos(){
 
@@ -26,20 +28,26 @@ export function ProductosProvider({children}: {children: React.ReactNode}){
 
         const productos = await response.json()
 
-        setProductos(productos)
-
+        //setProductos(productos)
+        console.log("funcion obtenerProuctos")
         return productos
     }
 
-    const filtrarProductos = (busqueda: string) => {
+    async function filtrarProductos(busqueda: string) {
+
+        const productosSinFiltrar = await obtenerProductos()
         
-        const productosFiltrados = productos.filter((producto: any) => {
+        const productosFiltrados = productosSinFiltrar.filter((producto: any) => {
 
             const tituloEnMinusculas = producto.title.toLowerCase();
             const descripcionEnMinusculas = producto.description.toLowerCase();
         
             return tituloEnMinusculas.includes(busqueda) || descripcionEnMinusculas.includes(busqueda);
         })
+
+        console.log("funcion filtrarProductos")
+
+        console.log(productosFiltrados)
 
         setProductos(productosFiltrados)
     }

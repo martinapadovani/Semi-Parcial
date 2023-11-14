@@ -40,7 +40,7 @@ export default function Layout({children,}: {children: React.ReactNode})  {
         //@ts-ignore
         const {user} = useContext(UserContext)
 
-        console.log(user.autorizado)
+        //console.log(user.autorizado)
 
     return user.autorizado ? (
 
