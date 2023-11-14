@@ -1,21 +1,20 @@
-import Image from 'next/image'
+
 import { Inter } from 'next/font/google'
 import CategoriaCard from '@/components/CategoriaCard'
-import { useState } from 'react';
+import { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 type Categoria = {
-
   nombre: string
   imagen: string
 }
 
-
 export default function Home( {categorias}: {categorias: Categoria[]}) {
 
-  return (
+  const [productos, setProductos] = useState([])
 
+  return (
     <section className="bg-fondoMain my-12 m-auto h-3/4 w-10/12">
       <div className="relative items-center w-full px-5 py-12 mx-auto md:px-12 lg:px-24 max-w-7xl">
         <div className="grid w-full grid-cols-1 gap-6 mx-auto lg:grid-cols-4">
