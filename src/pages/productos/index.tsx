@@ -12,7 +12,7 @@ type Product = {
 
 export default function Productos(){
     
-    //@ts-ignore
+    //@ts-ignore    
     const {productos} = useContext(ProductosContext) 
 
     console.log(productos)
